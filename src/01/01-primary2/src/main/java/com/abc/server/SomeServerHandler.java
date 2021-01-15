@@ -66,4 +66,5 @@ public class SomeServerHandler extends ChannelInboundHandlerAdapter {
         // 关闭Channel
         ctx.close();
     }
+
 }
