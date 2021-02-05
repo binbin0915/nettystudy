@@ -3,9 +3,6 @@ package cz.yb.netty.demo.demo6.server;
 import cz.yb.protobuf.DataInfo;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-
-import java.time.LocalDateTime;
 
 
 public class MyServerHandler extends SimpleChannelInboundHandler<DataInfo.MyMessage> {

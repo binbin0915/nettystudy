@@ -1,5 +1,5 @@
 plugins {
-    id "com.google.protobuf" version "0.8.10"
+    id "com.google.protobuf" version "0.8.14"
     id 'java'
 }
 sourceCompatibility = 1.8
@@ -19,7 +19,13 @@ dependencies {
     compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.14.0'
     compile group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.14.0'
     compile group: 'io.netty', name: 'netty-all', version: '4.1.32.Final'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.32.Final'
+    compile group: 'org.apache.thrift', name: 'libthrift', version: '0.13.0'
+
+    implementation 'io.grpc:grpc-netty-shaded:1.35.0'
+    implementation 'io.grpc:grpc-protobuf:1.35.0'
+    implementation 'io.grpc:grpc-stub:1.35.0'
+//    compileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+
 }
 
 sourceSets {
@@ -33,18 +39,20 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.10.1'
+        artifact = 'com.google.protobuf:protoc:3.12.0'
     }
 
     plugins {
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.25.0'
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.35.0'
         }
     }
-
+    generateProtoTasks.generatedFilesBaseDir = "src"
     generateProtoTasks {
         all()*.plugins {
-            grpc {}
+            grpc {
+                setOutputSubDir 'java'
+            }
         }
     }
 }
